@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ProjectJklcMapper">
+    
+    <resultMap type="ProjectJklc" id="ProjectJklcResult">
+        <result property="id"    column="id"    />
+        <result property="gdxc"    column="gdxc"    />
+        <result property="zbsl"    column="zbsl"    />
+        <result property="gjxc"    column="gjxc"    />
+        <result property="scyl"    column="scyl"    />
+        <result property="cjyl"    column="cjyl"    />
+        <result property="gjnl"    column="gjnl"    />
+        <result property="tnl"    column="tnl"    />
+        <result property="mgzl"    column="mgzl"    />
+        <result property="wynbwy"    column="wynbwy"    />
+        <result property="wddz"    column="wddz"    />
+        <result property="xgjy"    column="xgjy"    />
+    </resultMap>
+
+    <sql id="selectProjectJklcVo">
+        select id, gdxc, zbsl, gjxc, scyl, cjyl, gjnl, tnl, mgzl, wynbwy, wddz, xgjy from project_jklc
+    </sql>
+
+    <select id="selectProjectJklcList" parameterType="ProjectJklc" resultMap="ProjectJklcResult">
+        <include refid="selectProjectJklcVo"/>
+        <where>  
+            <if test="gdxc != null "> and gdxc = #{gdxc}</if>
+            <if test="zbsl != null "> and zbsl = #{zbsl}</if>
+            <if test="gjxc != null "> and gjxc = #{gjxc}</if>
+            <if test="scyl != null "> and scyl = #{scyl}</if>
+            <if test="cjyl != null "> and cjyl = #{cjyl}</if>
+            <if test="gjnl != null "> and gjnl = #{gjnl}</if>
+            <if test="tnl != null "> and tnl = #{tnl}</if>
+            <if test="mgzl != null "> and mgzl = #{mgzl}</if>
+            <if test="wynbwy != null "> and wynbwy = #{wynbwy}</if>
+            <if test="xgjy != null  and xgjy != ''"> and xgjy = #{xgjy}</if>
+            ${params.dataScope}
+        </where>
+            </select>
+    
+    <select id="selectProjectJklcById" parameterType="Long" resultMap="ProjectJklcResult">
+        <include refid="selectProjectJklcVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProjectJklc" parameterType="ProjectJklc" useGeneratedKeys="true" keyProperty="id">
+        insert into project_jklc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gdxc != null">gdxc,</if>
+            <if test="zbsl != null">zbsl,</if>
+            <if test="gjxc != null">gjxc,</if>
+            <if test="scyl != null">scyl,</if>
+            <if test="cjyl != null">cjyl,</if>
+            <if test="gjnl != null">gjnl,</if>
+            <if test="tnl != null">tnl,</if>
+            <if test="mgzl != null">mgzl,</if>
+            <if test="wynbwy != null">wynbwy,</if>
+            <if test="wddz != null">wddz,</if>
+            <if test="xgjy != null">xgjy,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gdxc != null">#{gdxc},</if>
+            <if test="zbsl != null">#{zbsl},</if>
+            <if test="gjxc != null">#{gjxc},</if>
+            <if test="scyl != null">#{scyl},</if>
+            <if test="cjyl != null">#{cjyl},</if>
+            <if test="gjnl != null">#{gjnl},</if>
+            <if test="tnl != null">#{tnl},</if>
+            <if test="mgzl != null">#{mgzl},</if>
+            <if test="wynbwy != null">#{wynbwy},</if>
+            <if test="wddz != null">#{wddz},</if>
+            <if test="xgjy != null">#{xgjy},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProjectJklc" parameterType="ProjectJklc">
+        update project_jklc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="gdxc != null">gdxc = #{gdxc},</if>
+            <if test="zbsl != null">zbsl = #{zbsl},</if>
+            <if test="gjxc != null">gjxc = #{gjxc},</if>
+            <if test="scyl != null">scyl = #{scyl},</if>
+            <if test="cjyl != null">cjyl = #{cjyl},</if>
+            <if test="gjnl != null">gjnl = #{gjnl},</if>
+            <if test="tnl != null">tnl = #{tnl},</if>
+            <if test="mgzl != null">mgzl = #{mgzl},</if>
+            <if test="wynbwy != null">wynbwy = #{wynbwy},</if>
+            <if test="wddz != null">wddz = #{wddz},</if>
+            <if test="xgjy != null">xgjy = #{xgjy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProjectJklcById" parameterType="Long">
+        delete from project_jklc where id = #{id}
+    </delete>
+
+    <delete id="deleteProjectJklcByIds" parameterType="String">
+        delete from project_jklc where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
