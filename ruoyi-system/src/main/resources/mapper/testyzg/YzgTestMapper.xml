@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.test.mapper.YzgTestMapper">
+    
+    <resultMap type="YzgTest" id="YzgTestResult">
+        <result property="a"    column="a"    />
+        <result property="b"    column="b"    />
+    </resultMap>
+
+    <sql id="selectYzgTestVo">
+        select a, b from yzg_test
+    </sql>
+
+    <select id="selectYzgTestList" parameterType="YzgTest" resultMap="YzgTestResult">
+        <include refid="selectYzgTestVo"/>
+        <where>  
+            <if test="a != null "> and a = #{a}</if>
+            <if test="b != null  and b != ''"> and b = #{b}</if>
+        </where>
+    </select>
+    
+    <select id="selectYzgTestByA" parameterType="Long" resultMap="YzgTestResult">
+        <include refid="selectYzgTestVo"/>
+        where a = #{a}
+    </select>
+        
+    <insert id="insertYzgTest" parameterType="YzgTest">
+        insert into yzg_test
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="a != null">a,</if>
+            <if test="b != null and b != ''">b,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="a != null">#{a},</if>
+            <if test="b != null and b != ''">#{b},</if>
+         </trim>
+    </insert>
+
+    <update id="updateYzgTest" parameterType="YzgTest">
+        update yzg_test
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="b != null and b != ''">b = #{b},</if>
+        </trim>
+        where a = #{a}
+    </update>
+
+    <delete id="deleteYzgTestByA" parameterType="Long">
+        delete from yzg_test where a = #{a}
+    </delete>
+
+    <delete id="deleteYzgTestByAs" parameterType="String">
+        delete from yzg_test where a in 
+        <foreach item="a" collection="array" open="(" separator="," close=")">
+            #{a}
+        </foreach>
+    </delete>
+</mapper>
